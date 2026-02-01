@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>MFO - Baza Przedmiotów</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    .filter-item {
+        border: 1px solid #333;
+        padding: 10px;
+        border-radius: 8px;
+        background: #1a1a1a;
+    }
+    .min-input {
+        display: none;
+        margin-top: 8px;
+        font-size: 0.9rem;
+    }
+    /* Pokazuje pole tekstowe tylko gdy checkbox jest zaznaczony */
+    input[type="checkbox"]:checked ~ .min-input {
+        display: block;
+    }
+    label { cursor: pointer; }
+    </style>
+</head>
+<body class="container-fluid">
+    <header>
+        <h1>Wyszukiwarka Ekwipunku</h1>
+    </header>
+
+    <form id="filter-form">
+        <input type="text" name="nazwa" placeholder="Szukaj po nazwie...">
+
+        <div class="filter-grid">
+            {% for stat in ['poziom', 'sloty', 'obrazenia', 'hp', 'mp', 'atak', 'atak_magiczny', 'obrona', 'obrona_magiczna', 'szczescie', 'szybkosc', 'celnosc', 'uniki'] %}
+            <div class="filter-item">
+                <label>
+                    <input type="checkbox" name="{{ stat }}_check"> {{ stat|replace('_', ' ')|capitalize }}
+                    <input type="number" name="{{ stat }}" class="min-input" placeholder="Wartość min.">
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" style="margin-top: 20px;">Szukaj Przedmiotów</button>
+    </form>
+
+    <div id="results-container" class="results-wrapper">
+        {% include '_item_list.html' %}
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

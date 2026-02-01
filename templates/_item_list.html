@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>Nazwa</th><th>Poz.</th><th>Atk</th><th>HP</th><th>Opis</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td><strong>{{ item.nazwa }}</strong></td>
+            <td>{{ item.poziom }}</td>
+            <td>{{ item.atak }}</td>
+            <td>{{ item.hp }}</td>
+            <td><small>{{ item.opis|striptags|truncate(80) }}</small></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="display: flex; gap: 5px; justify-content: center; margin-top: 20px;">
+    {% if pagination.has_prev %}
+        <button class="page-link" data-page="{{ pagination.prev_num }}">Poprzednia</button>
+    {% endif %}
+
+    <span style="padding: 10px;">Strona {{ pagination.page }} z {{ pagination.pages }}</span>
+
+    {% if pagination.has_next %}
+        <button class="page-link" data-page="{{ pagination.next_num }}">Następna</button>
+    {% endif %}
+</div>
