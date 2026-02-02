@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 app = Flask(__name__)
-# Flask-SQLAlchemy domyślnie szuka w folderze 'instance'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eqmfo.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -44,21 +42,22 @@ class Przedmiot(db.Model):
 def index():
     query = Przedmiot.query
 
-    # Filtry (te same co wcześniej)
-    num_stats = ['poziom', 'sloty', 'obrazenia', 'hp', 'mp', 'atak', 'atak_magiczny', 'obrona', 'obrona_magiczna',
+    num_stats = ['sloty', 'obrazenia', 'hp', 'mp', 'atak', 'atak_magiczny', 'obrona', 'obrona_magiczna',
                  'szczescie', 'szybkosc', 'celnosc', 'uniki']
     for stat in num_stats:
         if request.args.get(f"{stat}_check"):
             val = request.args.get(stat, type=int)
             query = query.filter(getattr(Przedmiot, stat) >= (val if val is not None else 1))
+    if request.args.get("poziom_check"):
+        od = request.args.get('poziom_od', type=int)
+        do = request.args.get('poziom_do', type=int)
+        query = query.filter(getattr(Przedmiot, 'poziom') >= (od if od is not None else 1)) and query.filter(getattr(Przedmiot, 'poziom') <= (do if do is not None else 1))
 
     nazwa = request.args.get('nazwa')
     if nazwa:
         query = query.filter(Przedmiot.nazwa.contains(nazwa))
 
-    # --- NOWA LOGIKA PAGINACJI ---
     page = request.args.get('page', 1, type=int)
-    # Wyświetlamy 20 wyników na stronę
     pagination = query.paginate(page=page, per_page=20, error_out=False)
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':

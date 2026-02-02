@@ -37,7 +37,14 @@
         <input type="text" name="nazwa" placeholder="Szukaj po nazwie...">
 
         <div class="filter-grid">
-            {% for stat in ['poziom', 'sloty', 'obrazenia', 'hp', 'mp', 'atak', 'atak_magiczny', 'obrona', 'obrona_magiczna', 'szczescie', 'szybkosc', 'celnosc', 'uniki'] %}
+            <div class="filter-item">
+                <label>
+                    <input type="checkbox" name="poziom_check"> {{ 'poziom'|replace('_', ' ')|capitalize }}
+                    <input type="number" name="{{ poziom_od }}" class="min-input" placeholder="Od">
+                    <input type="number" name="{{ poziom_do }}" class="min-input" placeholder="Do">
+                </label>
+            </div>
+            {% for stat in ['sloty', 'obrazenia', 'hp', 'mp', 'atak', 'atak_magiczny', 'obrona', 'obrona_magiczna', 'szczescie', 'szybkosc', 'celnosc', 'uniki'] %}
             <div class="filter-item">
                 <label>
                     <input type="checkbox" name="{{ stat }}_check"> {{ stat|replace('_', ' ')|capitalize }}

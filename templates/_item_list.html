@@ -1,16 +1,22 @@
 <table>
     <thead>
         <tr>
-            <th>Nazwa</th><th>Poz.</th><th>Atk</th><th>HP</th><th>Opis</th>
+            <th>NAZWA</th><th>LVL</th><th>HP</th><th>MP</th><th>ATAK</th><th>M_ATAK</th><th>DEF</th><th>M_DEF</th><th>LUCK</th><th>SPEED</th><th>Opis</th>
         </tr>
     </thead>
     <tbody>
         {% for item in items %}
         <tr>
-            <td><strong>{{ item.nazwa }}</strong></td>
+            <td><strong><a href="https://mfo3.pl/view/a/{{ item.id }}" target="_blank">{{ item.nazwa }}</a></strong></td>
             <td>{{ item.poziom }}</td>
-            <td>{{ item.atak }}</td>
-            <td>{{ item.hp }}</td>
+            <td>{% if item.hp > 0 %}{{ item.hp }}{% else %}{% endif %}</td>
+            <td>{% if item.mp > 0 %}{{ item.mp }}{% else %}{% endif %}</td>
+            <td>{% if item.atak > 0 %}{{ item.atak }}{% else %}{% endif %}</td>
+            <td>{% if item.atak_magiczny > 0 %}{{ item.atak_magiczny }}{% else %}{% endif %}</td>
+            <td>{% if item.obrona > 0 %}{{ item.obrona }}{% else %}{% endif %}</td>
+            <td>{% if item.obrona_magiczna > 0 %}{{ item.obrona_magiczna }}{% else %}{% endif %}</td>
+            <td>{% if item.szczescie > 0 %}{{ item.szczescie }}{% else %}{% endif %}</td>
+            <td>{% if item.szybkosc > 0 %}{{ item.szybkosc }}{% else %}{% endif %}</td>
             <td><small>{{ item.opis|striptags|truncate(80) }}</small></td>
         </tr>
         {% endfor %}
