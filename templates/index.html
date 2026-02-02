@@ -40,8 +40,8 @@
             <div class="filter-item">
                 <label>
                     <input type="checkbox" name="poziom_check"> {{ 'poziom'|replace('_', ' ')|capitalize }}
-                    <input type="number" name="{{ poziom_od }}" class="min-input" placeholder="Od">
-                    <input type="number" name="{{ poziom_do }}" class="min-input" placeholder="Do">
+                    <input type="number" name="poziom_od" class="min-input" placeholder="Od">
+                    <input type="number" name="poziom_do" class="min-input" placeholder="Do">
                 </label>
             </div>
             {% for stat in ['sloty', 'obrazenia', 'hp', 'mp', 'atak', 'atak_magiczny', 'obrona', 'obrona_magiczna', 'szczescie', 'szybkosc', 'celnosc', 'uniki'] %}
@@ -54,6 +54,7 @@
             {% endfor %}
         </div>
         <button type="submit" style="margin-top: 20px;">Szukaj Przedmiotów</button>
+        <button type="button" id="reset-btn" class="secondary" style="margin-top: 20px;">Resetuj filtry</button>
     </form>
 
     <div id="results-container" class="results-wrapper">

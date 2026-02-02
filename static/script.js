@@ -29,3 +29,16 @@ container.addEventListener('click', function(e) {
         fetchData(params);
     }
 });
+
+const resetBtn = document.getElementById('reset-btn');
+
+resetBtn.addEventListener('click', function() {
+    // 1. Czyścimy formularz
+    filterForm.reset();
+
+    // 2. Tworzymy puste parametry (pokażą wszystkie przedmioty)
+    const params = new URLSearchParams();
+
+    // 3. Wywołujemy funkcję pobierania danych z pustymi parametrami
+    fetchData(params);
+});

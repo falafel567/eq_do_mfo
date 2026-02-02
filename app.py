@@ -51,7 +51,11 @@ def index():
     if request.args.get("poziom_check"):
         od = request.args.get('poziom_od', type=int)
         do = request.args.get('poziom_do', type=int)
-        query = query.filter(getattr(Przedmiot, 'poziom') >= (od if od is not None else 1)) and query.filter(getattr(Przedmiot, 'poziom') <= (do if do is not None else 1))
+
+        if od is not None:
+            query = query.filter(Przedmiot.poziom >= od)
+        if do is not None:
+            query = query.filter(Przedmiot.poziom <= do)
 
     nazwa = request.args.get('nazwa')
     if nazwa:
